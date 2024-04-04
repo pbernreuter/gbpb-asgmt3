@@ -20,6 +20,11 @@ while True:
             
             #end connection if user enters QUIT
             if user_input.startswith("QUIT"):
+                print("Disconnecting from server...")
+                #send quit to server
+                client_socket.send(user_input.encode())
+                #close socket
+                client_socket.close()
                 break
 
             #send command and recieve and print server response
@@ -56,11 +61,6 @@ while True:
 
     #end connection if user enters QUIT and close socket
     if user_input.startswith("QUIT"):
-        print("Disconnecting from server...")
-        #send quit to server
-        client_socket.send(user_input.encode())
-        #close socket
-        client_socket.close()
         print("Client program terminated.")
         break
     else:
