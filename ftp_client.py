@@ -30,7 +30,7 @@ while True:
                         client_socket.send(file.read())
                     print(filename + " stored in server\n")
                 else:
-                    client_socket.send("File not found".encode())
+                    print("File not found")
             else:
                 print("Invalid Command")
     if user_input.startswith("QUIT"):
