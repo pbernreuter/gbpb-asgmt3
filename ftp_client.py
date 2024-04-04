@@ -11,10 +11,6 @@ while True:
         while True:
             user_input = input("Enter command:")
             if user_input.startswith("QUIT"):
-                print("Disconnecting from server...")
-                #send quit to server
-                #close socket
-                client_socket.close()
                 break
             elif user_input.startswith("LIST"):
                 client_socket.send(user_input.encode())
@@ -26,6 +22,17 @@ while True:
                 client_socket.send(user_input.encode())
             else:
                 print("Invalid Command")
+    elif user_input.startswith("QUIT"):
+        print("Disconnecting from server...")
+        #send quit to server
+        client_socket.send(user_input.encode())
+        #close socket
+        client_socket.close()
+        print("Client program terminated.")
+        break
+    else:
+        print("Invalid Command. Try again.")
+
 
 
 
