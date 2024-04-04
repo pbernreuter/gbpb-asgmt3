@@ -7,38 +7,46 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 # Assign a port number and bind it to server socket
 serverSocket.bind(('', 6789))
 
-while True:
-    # Listen for 1 connection at a time
-    serverSocket.listen(1)  
-    # Set up a new connection from the client
-    clientSocket, addr = serverSocket.accept()
+# Listen for 1 connection at a time
+serverSocket.listen(1)  
 
+try:
+    # Loop to keep the server running
     while True:
-        # Receive message from the client
-        message = clientSocket.recv(1024).decode()
-        message = message.split()
+    
+        # Set up a new connection from the client
+        clientSocket, addr = serverSocket.accept()
 
-        if message[0] == "LIST":
-            # Send the list of files in the current directory
-            file_list = '\n'.join(os.listdir('.'))
-            clientSocket.send(file_list.encode())
-        
-        elif message[0] == "RETRIEVE":
-            filename = message[1]
-            if os.path.exists(filename) and os.path.isfile(filename):
-                with open(filename, 'rb') as file:
-                    clientSocket.send(file.read())
-            else:
-                clientSocket.send("File not found".encode())
+        while True:
+            # Receive message from the client
+            message = clientSocket.recv(1024).decode()
+            message = message.split()
 
-        elif message[0] == "STORE":
-            filename = message[1]
-            file_data = clientSocket.recv(1024)
-            with open(filename, 'wb') as file:
-                file.write(file_data)
+            if message[0] == "LIST":
+                # Send the list of files in the current directory
+                file_list = '\n'.join(os.listdir('.'))
+                clientSocket.send(file_list.encode())
+            
+            elif message[0] == "RETRIEVE":
+                filename = message[1]
+                if os.path.exists(filename) and os.path.isfile(filename):
+                    with open(filename, 'rb') as file:
+                        clientSocket.send(file.read())
+                else:
+                    clientSocket.send("File not found".encode())
 
-        elif message[0] == "QUIT":
-            clientSocket.close()
-            break
+            elif message[0] == "STORE":
+                filename = message[1]
+                file_data = clientSocket.recv(1024)
+                with open(filename, 'wb') as file:
+                    file.write(file_data)
+
+            elif message[0] == "QUIT":
+                clientSocket.close()
+                break
+
+except KeyboardInterrupt:
+    print("Server terminated by user.")
+    serverSocket.close()
 
     
