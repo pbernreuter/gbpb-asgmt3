@@ -29,7 +29,7 @@ try:
             
             elif message[0] == "RETRIEVE":
                 filename = message[1]
-                if os.path.exists(filename) and os.path.isfile(filename):
+                if os.path.isfile(filename):
                     with open(filename, 'rb') as file:
                         clientSocket.send(file.read())
                 else:
