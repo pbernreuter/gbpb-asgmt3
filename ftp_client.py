@@ -27,10 +27,10 @@ while True:
                 filename = user_input[1]
                 if os.path.isfile(filename):
                     with open(filename, 'rb') as file:
-                        clientSocket.send(file.read())
+                        client_socket.send(file.read())
                     print(filename + " stored in server\n")
                 else:
-                    clientSocket.send("File not found".encode())
+                    client_socket.send("File not found".encode())
             else:
                 print("Invalid Command")
     if user_input.startswith("QUIT"):
