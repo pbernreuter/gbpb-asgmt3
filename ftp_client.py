@@ -20,11 +20,10 @@ while True:
                 client_socket.send(user_input.encode())
                 user_input = user_input.split()
                 filename = user_input[1]
-                response = client_socket.recv(1024).decode()
+                response = client_socket.recv(1024)
                 with open(filename, 'wb') as file:
                     file.write(response)
                 print("Retrieved " + filename + "from server.\n")
-                client_socket.send(user_input.encode())
             elif user_input.startswith("STORE"):
                 client_socket.send(user_input.encode())
                 user_input = user_input.split()
