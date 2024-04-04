@@ -2,7 +2,7 @@ from socket import *
 import os
 
 while True:
-    user_input = input("Type: \"CONNECT <server_address> <server_port>\" to begin")
+    user_input = input("Type: \"CONNECT <server_address> <server_port>\" to begin: ")
     if user_input.startswith("CONNECT"):
         command, server_address, server_port = user_input.split()
         server_port = int(server_port)
@@ -14,6 +14,8 @@ while True:
                 break
             elif user_input.startswith("LIST"):
                 client_socket.send(user_input.encode())
+                response = client_socket.recv(1024).decode()
+                print("Server response:", response)
             elif user_input.startswith("RETRIEVE"):
                 #retrive
                 client_socket.send(user_input.encode())
