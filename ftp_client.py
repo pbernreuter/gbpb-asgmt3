@@ -24,7 +24,7 @@ while True:
                 client_socket.send(user_input.encode())
             else:
                 print("Invalid Command")
-    elif user_input.startswith("QUIT"):
+    if user_input.startswith("QUIT"):
         print("Disconnecting from server...")
         #send quit to server
         client_socket.send(user_input.encode())
@@ -34,7 +34,6 @@ while True:
         break
     else:
         print("Invalid Command. Try again.")
-
 
 
 
