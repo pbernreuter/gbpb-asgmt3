@@ -1,0 +1,14 @@
+WRITING AND READING FILES
+-Problems occurred when writing and reading files with the formatting
+- We found that the write and read used binary formatting so when sending and retrieving the data we 
+didn't need to encode and decode the data
+
+QUIT LOGIC IN CLIENT  
+- Problems occurred in the while loops with how the program quit
+- Our initial design used elif which we later changed to only an if so that when you type wuit it exits 
+out of both for loops. In addition to this we also moved the placement of this if around.
+
+REUSE OF CODE  
+- We reused some code in the retrieve and store methods between the client and server side.
+- We had to fix variable names while also making some miniscule adjustments to the code in order for it to 
+function properly.
