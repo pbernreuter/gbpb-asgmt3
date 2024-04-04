@@ -15,13 +15,22 @@ while True:
             elif user_input.startswith("LIST"):
                 client_socket.send(user_input.encode())
                 response = client_socket.recv(1024).decode()
-                print("Server response:", response)
+                print("Server response:\n", response)
             elif user_input.startswith("RETRIEVE"):
-                #retrive
+                client_socket.send(user_input.encode())
+                response = client_socket.recv(1024).decode()
+                print("Server response:\n", response)
                 client_socket.send(user_input.encode())
             elif user_input.startswith("STORE"):
-                #store
                 client_socket.send(user_input.encode())
+                user_input = user_input.split()
+                filename = user_input[1]
+                if os.path.isfile(filename):
+                    with open(filename, 'rb') as file:
+                        clientSocket.send(file.read())
+                    print(filename + " stored in server\n")
+                else:
+                    clientSocket.send("File not found".encode())
             else:
                 print("Invalid Command")
     if user_input.startswith("QUIT"):
