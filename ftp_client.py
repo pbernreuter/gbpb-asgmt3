@@ -1,3 +1,6 @@
+#Parker Bernreuter & Gabe Baksa
+#04/06/2021
+
 from socket import *
 import os
 
